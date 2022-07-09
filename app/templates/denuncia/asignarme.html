@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block title %}Asignación de denuncia{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+{% endblock %}
+{% block content %}
+
+<h1 class="title-user-register">Asignarme denuncia</h1>
+<div class="container-user-register">
+  <div class="title">Detalles de denuncia</div>
+  <div class="content-user-register">
+    
+      <div class="user-details">
+        <div class="input-box">
+            <span class="details">Título: {{denuncia.titulo}}</span>
+        </div>               
+        <div class="input-box">
+            <span class="details">Categoría: {{denuncia.categoria.nombre}}</span>
+        </div>       
+        <div class="input-box">
+            <span class="details">Fecha de creación: {{denuncia.fecha_creacion}}</span>
+        </div>       
+        <div class="input-box">
+            <span class="details">Descripción: {{denuncia.descripcion}}</span>
+        </div>          
+        <div class="input-box">
+            <span class="details">Estado: {{denuncia.estado}}</span>
+        </div>
+        <div class="input-box">
+            <span class="details">Apellido denunciante: {{denuncia.apellido_denunciante}}</span>
+        </div>
+        <div class="input-box">
+            <span class="details">Nombre denunciante: {{denuncia.nombre_denunciante}}</span>
+        </div>
+        <div class="input-box">
+            <span class="details">Teléfono: {{denuncia.telefono}}</span>
+        </div>
+        <div class="input-box">
+            <span class="details">Email: {{denuncia.email}}</span>
+        </div>
+        <div class="input-box">
+            {% if denuncia.asignado == None %}
+                <span class="details">Asignado a: Nadie</span>
+            {% endif %}
+            {% if not denuncia.asignado == None %}
+                <span class="details">Asignado a: {{denuncia.asignado}}</span>
+            {% endif %}
+        </div>
+        <div class="input-box">
+            <span class="details">Cantidad de intentos: {{denuncia.intentos}}</span>
+        </div>            
+        </div>
+        
+        <div class="body-home"> 
+          
+            <a href="{{ url_for('denuncia_confirmAsig' , denuncia_id = denuncia.id) }}" class="link">Asignarme</a>
+          
+          <a href="{{ url_for('denuncia_show', denuncia_id=denuncia.id) }}" class="link">Cancelar</a>
+        </div>
+    
+  </div>
+</div>
+{% endblock %}
+ 
+

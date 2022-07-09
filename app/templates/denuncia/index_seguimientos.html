@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block title %}Seguimientos{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+{% endblock %}
+{% block content %}
+
+<h1 class="title-user-register">Seguimientos de la denuncia</h1>
+{% if seguimientos|length == 0 %}
+    <h5 class="title-user-register">No hay seguimientos para esta denuncia</h5>
+    
+{% endif %}
+{% for seguimiento in seguimientos %}
+<div class="container-user-register">
+  
+  <div class="title">Detalles seguimiento</div>
+  <div class="content-user-register">
+    
+      <div class="user-details">
+        <div class="input-box"></div>
+            <span class="details">Autor: {{seguimiento.autor}}</span>
+        </div>
+        <div class="input-box"></div>
+            <span class="details">Fecha de creación: {{seguimiento.fecha_creacion}}</span>
+        </div>
+        <div class="input-box"></div>
+            <span class="details">Descripción: {{seguimiento.descripcion}}</span>
+        </div>
+                    
+      </div>
+  
+  </div>
+  
+  
+</div>
+{% endfor %}
+<div class="body-home"> 
+    <a href="{{ url_for('denuncia_show', denuncia_id=denuncia_id) }}" class="link">Volver</a>
+ 
+    <a href="{{ url_for('denuncia_new_seguimiento', denuncia_id=denuncia_id) }}" class="link">Agregar seguimiento</a>
+</div>
+
+
+
+{% endblock %}
+ 
+

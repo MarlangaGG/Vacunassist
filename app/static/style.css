@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700');
+@import url('https://fonts.googleapis.com/css?family=Catamaran:400,800');
+
+*{
+  box-sizing: border-box;
+  font-family: 'Poppins',sans-serif;
+}
+
+.button {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+body {
+  background-color: rgb(255, 255, 255);
+  font-family: 'Montserrat', Helvetica, sans-serif;
+  font-size: 14px;
+  height: 100%;
+}
+.clear {
+  clear: both;
+  height: 0;
+  overflow: hidden;
+}
+
+#footer {
+  padding: 10px 10px 0px 10px; 
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+}
+
+#container {
+  width: 75%;
+  margin: 0 auto;
+  background-color: rgb(255, 255, 255);
+  padding: 20px 40px;
+  border: solid 1px black;
+  margin-top: 20px;
+  min-height: 400px;
+}
+
+.navbar a
+{
+  text-decoration: none;
+  color: #FFF;
+}
+
+.body-home
+{
+  background-color: rgb(255, 255, 255);
+  padding-top: 50px;
+  text-align: center;
+  padding-bottom: 50px;
+}
+
+.container-filters
+{
+  display: inline-block !important;
+}
+.section-filters
+{
+  text-align: center !important;
+}
+.form-search
+{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.alert
+{
+  margin: 0rem !important;
+  width: 15rem;
+  text-align: center !important;
+  margin-top: 1rem !important;
+  margin-bottom: 0rem !important;
+  transform: translateX(35rem) !important;
+}
+
+/* Zonas inundables */
+.zonas-info
+{
+  height: 71vh;
+}
+.col-info
+{
+    transform: translateY(4rem);
+}
+.title-zona
+{
+    transform: translateY(1rem);
+    padding-left: 2rem;
+}
+.description-zona
+{
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+.img-zona
+{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    transform: translateY(4rem);
+}
+.btn-zonas-coordenadas
+{
+  margin-top: 2rem;
+}
+
+#mapid 
+{ 
+  height: 25rem;
+  width: 40rem; 
+}
+
+.map-container
+{
+  transform: translateY(3rem);
+}
+.logo
+{
+  padding-top: 10px;
+  padding-left: 25px;
+}
+.vacunarse
+{
+  border: 5px solid rgb(23, 136, 47);
+  border-radius: 25px;
+}
+
+.padded
+{
+  padding-top: 30px;
+}
+
+.texto-mapa
+{
+  font-size: 50px;
+}
+
+.button-ingresar
+{
+  background-color: #FFF;
+  color: black;
+  border:5px solid rgb(23, 136, 47);
+}
+.button:hover
+{
+  color: rgb(23, 136, 47);
+}
+.button-ingresar:hover
+{
+  background-color: rgb(23, 136, 47);
+  color: #FFF;
+}
+
+.left
+{
+  text-align: left;
+}
+
+.bold
+{
+  font-weight: bold;
+}
+
+.overlay
+{
+  position: fixed;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.overlay:target
+{
+  visibility: visible;
+  opacity: 1;
+}
+
+.wrapper
+{
+  padding-top: 25px;
+  background-color: rgb(23, 136, 47);
+  border-style: solid;
+  border-color: #FFF;
+  border-radius: 5px;
+  position: relative;
+  margin: auto;
+  width: 35%;
+  height: 50%;
+  top: 20%;
+  transition: all 5s ease-in-out;
+}
+
+.wrapper .close
+{
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 5px;
+  display:block;
+  position: absolute;
+  transition: all 200ms;
+  font-size: 150%;
+  font-weight: bold;
+  text-decoration: none;
+  height: 5%;
+  width: 5%;
+  color: rgb(255, 255, 255);
+  top: 0.5%;
+  right: 0.5%;
+}
+
+.mapa
+{
+  margin: auto;
+}
+
+.cancelar
+{
+  border: 2px solid red ;
+  color: black;
+}
+
+.cancelar:hover
+{
+  background-color: red;
+  color:#FFF
+}

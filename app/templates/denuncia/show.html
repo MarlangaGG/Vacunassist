@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block title %}Ver denuncia{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class="alert alert-primary" role="alert">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+  </div>
+  {% endif %}
+{% endwith %}
+
+<h1 class="title-user-register">Visualización denuncia</h1>
+<div class="container-user-register">
+  <div class="title">Detalles de denuncia</div>
+  <div class="content-user-register">
+    
+      <div class="user-details">
+        <a href="{{ url_for('denuncia_index_seguimientos' , denuncia_id = denuncia.id) }}" class="link">Ver seguimientos</a>
+        <div class="input-box">
+            <span class="details">Título: {{denuncia.titulo}}</span>
+        </div>               
+        <div class="input-box">
+            <span class="details">Categoría: {{denuncia.categoria.nombre}}</span>
+        </div>       
+        <div class="input-box">
+            <span class="details">Fecha de creación: {{denuncia.fecha_creacion}}</span>
+        </div>       
+        <div class="input-box">
+            <span class="details">Descripción: {{denuncia.descripcion}}</span>
+        </div>          
+        <div class="input-box">
+            <span class="details">Estado: {{denuncia.estado}}</span>
+        </div>
+        <div class="input-box">
+            <span class="details">Apellido denunciante: {{denuncia.apellido_denunciante}}</span>
+        </div>
+        <div class="input-box">
+            <span class="details">Nombre denunciante: {{denuncia.nombre_denunciante}}</span>
+        </div>
+        <div class="input-box">
+            <span class="details">Teléfono: {{denuncia.telefono}}</span>
+        </div>
+        <div class="input-box">
+            <span class="details">Email: {{denuncia.email}}</span>
+        </div>
+        <div class="input-box">
+            {% if denuncia.asignado == None %}
+                <span class="details">Asignado a: Nadie</span>
+            {% endif %}
+            {% if not denuncia.asignado == None %}
+                <span class="details">Asignado a: {{denuncia.asignado}}</span>
+            {% endif %}
+        </div>
+        <div class="input-box">
+            <span class="details">Cantidad de intentos: {{denuncia.intentos}}<a href="{{ url_for('denuncia_incrementar_intentos' , denuncia_id = denuncia.id) }}" class="link">Incrementar intentos</a></span>
+        </div>
+        
+                    
+        </div>
+        
+        <div class="body-home"> 
+          
+            <a href="{{ url_for('denuncia_index') }}" class="link">Volver</a>
+            <a href="{{ url_for('denuncia_edit' , denuncia_id = denuncia.id) }}" class="link">Editar</a>
+            {% if has_permission(session["user"], "denuncia_delete") %}
+                <a href="{{ url_for('denuncia_eliminar' , denuncia_id = denuncia.id) }}" class="link">Eliminar</a>
+            {% endif %}
+            <a href="{{ url_for('denuncia_asignarme' , denuncia_id = denuncia.id) }}" class="link">Asignarme denuncia</a>
+            <a href="{{ url_for('denuncia_modificar_estado' , denuncia_id = denuncia.id) }}" class="link">Modificar estado</a>
+        </div>
+    
+  </div>
+</div>
+{% endblock %}
+ 
+

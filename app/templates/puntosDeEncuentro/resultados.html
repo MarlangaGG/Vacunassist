@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+{% block title %}
+    Puntos de encuentro
+{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='separate_footer.css') }}" />
+{% endblock %}
+{% block content %}
+    <h1 class="users-index-title">Resultados de Puntos de encuentro</h1>
+    <div class="body-home"> 
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Dirección</th>
+                    <th scope="col">Coordenadas</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Modificar</th>
+                    <th scope="col">Eliminar</th>
+                </tr>
+            </thead>
+            {% for punto in puntos.items %}
+                <tbody>
+                    <tr>
+                        <td>{{ punto.nombre }}</td>
+                        <td>{{ punto.direccion }}</td>
+                        <td>{{ punto.coordenadas }}</td>
+                        <td>
+                            {% if punto.estado == 0 %}
+                                No publicado
+                            {% else %}
+                                Publicado
+                            {% endif %}
+                        </td>
+                        <td>{{ punto.telefono }}</td>
+                        <td>{{ punto.email }}</td>
+                        <td> <a href="{{ url_for('puntosDeEncuentro_modificar' , punto_id = punto.id) }}">Modificar</a></td>
+                        <td> <a href="{{ url_for('puntosDeEncuentro_eliminar' , punto_id = punto.id) }}">Eliminar</a></td>
+                    </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+    </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+        {% for page in puntos.iter_pages() %}
+            {% if page %}
+                {% if page != puntos.page %}
+                    <li class="page-item"><a class="page-link" href="{{ url_for('puntosDeEncuentro_resultados', page=page) }}">{{ page }}</a></li>
+                {% else %}
+                    <li class="page-item active"><a class="page-link" href="{{ url_for('puntosDeEncuentro_resultados', page=page) }}">{{ page }}</a></li>
+                {% endif %}
+            {% else %}
+            {% endif %}
+        {%- endfor %}
+        </ul>
+    </nav>
+    <div class="body-home"> 
+        <a href="{{ url_for('puntosDeEncuentro_index') }}" class="link">Volver</a>
+    </div>
+{% endblock %}
+</html>

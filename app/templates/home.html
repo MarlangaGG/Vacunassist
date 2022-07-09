@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %} 
+<div class="body-home container-fluid">
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class="alert alert-primary" role="alert">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+    <div class="row">
+      <div class="row justify-content-center">
+        <div class="col-3">
+          <h1 class="title-home left bold">Necesitas Vacunarte?</h1>
+          <h2 class="subtitle-home left">Para poder pedir un turno en alguno de los vacunatorios <br>Registrate y se te asignará un turno </h2>
+          <a href="{{ url_for('auth_login') }}" class="button button-ingresar bold">Ingresar</a>
+        </div>
+        <div class="col-4">
+          <figure><img class="vacunarse rounded"src=".\static\source\vacunarse.jpg" alt="" width="75%" height="75%"></figure>
+        </div>
+      </div>
+    </div>
+    <div class="row padded">
+      <div class="row justify-content-center">
+        <div class="col-3">
+          <figure><img src=".\static\source\vacunita.png" alt="" width="25%" height="25%"></figure>
+          <h1 class="title-home">Vacunatorio 1</h1>
+          <h2 class="subtitle-home">Ubicado en la municipalidad</h2>
+          <a class="texto-mapa padded" href="#mapa">  <b>Ver en el mapa</b></a>
+        </div>
+        <div class="col-3">
+          <figure><img src=".\static\source\vacunita.png" alt="" width="25%" height="25%"></figure>
+          <h1 class="title-home">Vacunatorio 2</h1>
+          <h2 class="subtitle-home">Ubicado en el cementerio</h2>
+          <a class="texto-mapa padded" href="#mapa">  <b>Ver en el mapa</b></a>
+        </div>
+        <div class="col-3">
+          <figure><img src=".\static\source\vacunita.png" alt="" width="25%" height="25%"></figure>
+          <h1 class="title-home">Vacunatorio 3</h1>
+          <h2 class="subtitle-home">Ubicado en la terminal de omnibus</h2>
+          <a class="texto-mapa padded" href="#mapa">  <b>Ver en el mapa</b></a>
+        </div>
+        <div class="overlay mapa" id="mapa">
+          <div class="wrapper">
+            <a href="#" class="close">&times;</a>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3271.137307232275!2d-57.9584334!3d-34.9280932!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a2e62ba55735f5%3A0x63763b27dee92792!2sVacunatorio%20Municipal!5e0!3m2!1ses-419!2sar!4v1651787113498!5m2!1ses-419!2sar" width="90%" height="90%" style="border-radius: 5px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ {% endblock %}

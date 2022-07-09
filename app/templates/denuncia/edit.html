@@ -1,0 +1,74 @@
+
+  {% extends "layout.html" %}
+  {% block title %}Editar denuncia{% endblock %}
+  {% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+  {% endblock %}
+
+  {% block content %}
+  
+    <h1 class="title-user-register">Editar Denuncia</h1>
+    <div class="container-user-register">
+      <div class="title">Detalles de denuncia</div>
+      <div class="content-user-register">
+        <form action="{{ url_for('denuncia_update') }}" method="POST">
+            <div class="user-details">
+              <input type="hidden" name="id" value="{{ denuncia.id }}">
+              <div class="input-box">
+                <span class="details">Título</span>
+                <input type="text" name="titulo" value="{{denuncia.titulo}}" required="true">
+              </div>
+              <div class="input-box">
+                <span class="details">Categoría</span>
+                <select name="categoria"  class="form-select details" aria-label="Default select example">
+                  {% for cate in categorias %}
+                    {% if  cate.id  == denuncia.categoria_id %}
+                      <option selected value="{{ cate.id }}">{{ cate.nombre }}</option>
+                    {% else %}  
+                      <option value="{{ cate.id }}">{{ cate.nombre }}</option>
+                    {% endif %}
+                    
+                  {% endfor %}                 
+                  
+                </select>
+              </div>
+              
+              <div class="input-box">
+                <span class="details">Nombre</span>
+                <input type="text" name="nombre" value="{{denuncia.nombre_denunciante}}" required>
+              </div>
+              <div class="input-box">
+                <span class="details">Apellido</span>
+                <input type="text" name="apellido" value="{{denuncia.apellido_denunciante}}" required>
+              </div>
+              <div class="input-box">
+                <span class="details">Email</span>
+                <input type="email" name="email" value="{{denuncia.email}}" required>
+              </div>
+              <div class="input-box">
+                <span class="details">Teléfono</span>
+                <input type="tel"  name="telefono" pattern=[0-9]{8-15} maxlength="15" minlength="8" value="{{denuncia.telefono}}" required>
+              </div>
+              <div class="input-box">
+                <span class="details">Descripción</span>
+                <textarea name="descripcion" rows="5" cols="30" maxlength="256" required>{{denuncia.descripcion}}</textarea>
+              </div>
+
+            </div>
+
+              
+          <div class="button">
+            <input type="submit" value="Actualizar">
+          </div>
+          
+        </form>
+        <div class="button button-cancel">
+          <input type="submit"  value="Cancelar" onclick="location.href='{{url_for('denuncia_show', denuncia_id=denuncia.id)}}'">              
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+  
+ 
+

@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+{% block title %}Crear usuario{% endblock %}
+{% block head %}
+  {{ super() }}
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+  
+  {% endblock %}
+{% block content %}
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="alert alert-primary" role="alert">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+      </div>
+    {% endif %}
+{% endwith %}
+  <h1 class="title-user-register">Modulo registro de usuarios</h1>
+  <div class="container-user-register">
+    <div class="title">Registrar usuario</div>
+    <div class="content-user-register">
+      <form action="{{ url_for('registrarmisvacunas') }}" method="POST">
+        <div class="user-details">
+          
+          <div class="input-box">
+            <hr>
+            <span class="details">¿Recibió la vacuna de la fiebre amarilla?</span>
+            <select name="fiebre">
+              <option value="si" >SI</option>
+              <option value="no" selected>NO</option>
+              
+            </select>
+          </div>
+        
+        
+        <div class="container-filters">
+
+        <span class="details">En caso de haber recibido la vacuna de la fiebre amarilla indique fecha de su aplicación</span>  
+        <input type="date" id="start" name="fechafiebre"
+         value="2021-07-22"
+         min="1938-01-01" max="2022-04-05"> 
+        </div>
+
+        <div class="input-box">
+          <hr>
+          <span class="details">¿Recibió la vacuna antigripal?</span>
+          <select name="gripe">
+            <option value="si" >SI</option>
+            <option value="no" selected>NO</option>
+            
+          </select>
+          </div>
+          <div class="container-filters">
+            
+          <span class="details">En caso de haber recibido la vacuna antigripal indique fecha de su aplicación</span>  
+          <input type="date" id="start" name="fechagripe"
+           value="2021-07-22"
+           min="2021-05-11" max="2022-05-11"> 
+          </div>
+          <div class="input-box">
+            <hr>
+<span class="details">¿Recibió la vacuna covid-19?</span>
+<select name="covid">
+  <option value="si" >SI</option>
+  <option value="no" selected>NO</option>
+  
+</select>
+</div>
+
+
+<div class="container-filters">
+<span class="details">En caso de haber recibido la vacuna covid-19 indique fecha de su aplicación</span>  
+<input type="date" id="start" name="fechacovid"
+value="2021-07-22"
+min="2021-01-01" max="2022-05-11"> 
+</div>
+
+<div class="input-box">
+  <hr>
+<span class="details">¿Es persona de riesgo?</span>
+<select name="riesgo">
+<option value="si" >SI</option>
+<option value="no" selected>NO</option>
+
+</select>
+</div>
+
+<input hidden type="email" name="email" value="{{ newuser.email }}">
+
+          
+          
+          
+          
+          
+          
+          
+        </div>
+        <div class="button">
+          <input type="submit" value="Confirmar">
+        </div>
+        
+      </form>
+      <div class="button button-cancel">
+        <input type="submit"  value="Cancelar" onclick="location.href='{{url_for('home')}}'">              
+      </div>
+      
+    </div>
+  </div>
+  {% endblock %}

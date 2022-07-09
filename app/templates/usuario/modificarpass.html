@@ -1,0 +1,53 @@
+
+  {% extends "layout.html" %}
+  {% block title %}Editar perfil{% endblock %}
+  {% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+  {% endblock %}
+
+  {% block content %}
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class="alert alert-danger" role="alert">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+  </div>
+    {% endif %}
+    {% endwith %}
+    <h1 class="title-user-register">Modificar contraseña</h1>
+    <div class="container-user-register">
+      
+      <div class="title">Detalles de usuario</div>
+      <div class="content-user-register">
+        <form action="{{ url_for('updatepass') }}" method="POST">
+            <div class="user-details">
+                <div class="input-box">
+                    <span class="details">Contraseña actual</span>
+                    <input type="password" name="anterior" placeholder="Ingresar contraseña"  maxlength="20" minlength="6" required>
+                </div>               
+                <div class="input-box">
+                    <span class="details">Contraseña nueva</span>
+                    <input type="password" name="password" placeholder="Ingresar contraseña"  maxlength="20" minlength="6" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Repetir contraseña</span>
+                    <input type="password" name="password2" placeholder="Repetir contraseña"  maxlength="20" minlength="6" required>
+                </div>
+                
+            </div> 
+          <div class="button">
+            <input type="submit" value="Actualizar">
+          </div>
+          
+        </form>
+        <div class="button button-cancel">
+          <input type="submit"  value="Cancelar" onclick="location.href='{{url_for('homepersona')}}'">              
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+  
+ 
+

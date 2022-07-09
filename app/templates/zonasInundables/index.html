@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+{% block title %}
+    Zonas inundables
+{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='separate_footer.css') }}" />
+{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class="alert alert-primary" role="alert">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+  </div>
+  {% endif %}
+{% endwith %}
+    <h1 class="users-index-title">Listado de Zonas inundables</h1>
+    <div class="body-home"> 
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+            {% for zona in post_pagination.items %}
+                <tbody>
+                    <tr>
+                        <td>{{ zona.nombre }}</td>
+                        <td>{{ zona.codigo_zona }}</td>
+                        <td>
+                            {% if zona.estado == 0 %}
+                                No publicado
+                            {% else %}
+                                Publicado
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if has_permission(session["user"], "zonas_show") %} 
+                            <a href="{{ url_for('zonasInundables_index_detalle' , zona_id = zona.id) }}">Ver en detalle</a>
+                            {% endif %}
+                            {% if has_permission(session["user"], "zonas_destroy") %}
+                            <a href="{{ url_for('zonasInundables_eliminar' , zona_id = zona.id) }}">Eliminar</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+    </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+        {%- for page in post_pagination.iter_pages() %}
+            {% if page %}
+                {% if page != post_pagination.page %}
+                    <li class="page-item"><a class="page-link" href="{{ url_for('zonasInundables_index', page=page) }}">{{ page }}</a></li>
+                {% else %}
+                    <li class="page-item active"><a class="page-link" href="{{ url_for('zonasInundables_index', page=page) }}">{{ page }}</a></li>
+                {% endif %}
+            {% else %}
+            {% endif %}
+        {%- endfor %}
+        </ul> 
+    <nav aria-label="Page navigation example">
+        <div class="section-filters">
+            <form class="form-search" action="{{ url_for('zonasInundables_resultados') }}" method="POST">
+                <button class="btn btn-primary" type="submit">Buscar</button>
+                <div class="container-filters">
+                    <input class="form-control me-2" type="search" placeholder="Buscar por nombre" aria-label="Search" name="nombre" required/>
+                </div>
+                <h4 class="form-check container-filters">Filtrar por: </h4>
+                <div class="form-check container-filters">
+                    <input class="form-check-input" type="radio" name="flexRadioDeFilter" value="1" id="flexRadioDefault1" checked>
+                    <label class="form-check-label" for="flexRadioDefault1">
+                    Publicado
+                    </label>
+                </div>
+                <div class="form-check container-filters">
+                    <input class="form-check-input" type="radio" name="flexRadioDeFilter" value="0" id="flexRadioDefault2" checked>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                    No publicado
+                    </label>
+                </div>
+                <div class="form-check container-filters">
+                    <input class="form-check-input" type="radio" name="flexRadioDeFilter" value="2" id="flexRadioDefault3">
+                    <label class="form-check-label" for="flexRadioDefault3" checked>
+                    Ambos
+                    </label>
+                </div>
+            </form>
+        </div>
+    <div class="body-home"> 
+        <a href="{{ url_for('home') }}" class="link">Volver</a>
+        {% if has_permission(session["user"], "zonas_destroy") %}
+        <form method="POST" action="{{ url_for('zonasInundables_create') }}" enctype="multipart/form-data">
+            <label class="zonas-button-upload" for="customFile">Cargar zonas inundables</label>
+            <p><input type="file" accept=".csv" name="file"></p>
+            <p><input type="submit" value="Cargar"></p>
+        </form>
+        {% endif %}
+    </div>      
+{% endblock %}

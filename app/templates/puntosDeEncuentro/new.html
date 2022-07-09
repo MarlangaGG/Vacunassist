@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block title %}Nuevo Punto de Encuentro{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+    <!--Leaflet files-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <!--Files-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='mapa.css')}}">
+{% endblock %}
+{% block content %}
+    <h1 class="title-user-register">Registro de puntos de encuentro</h1>
+    <div class="container-user-register">
+        <div class="title">Registrar punto de encuentro</div>
+            <div class="content-user-register">
+                <form action="{{ url_for('puntosDeEncuentro_create') }}" method="POST" id="formulario">
+                    <div class="user-details">
+                        <div class="input-box">
+                            <span class="details">Nombre</span>
+                            <input type="text" name="nombre" placeholder="Ingrese el nombre" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Dirección</span>
+                            <input type="text" name="direccion" placeholder="Ingres su dirección" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Teléfono</span>
+                            <input type="text" name="telefono" placeholder="Ingresar su teléfono" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Email</span>
+                            <input type="email" name="email" placeholder="Ingrese su email" required>
+                        </div>
+                    </div>
+                    <input type="text" name="lat" id="lat">
+                    <input type="text" name="long" id="long">
+                    <div class="map-container">
+                        <div id="mapid"></div>
+                    </div>
+                    <div class="button">
+                        <input type="submit" value="Registrar">
+                    </div>
+                    <div class="button button-cancel">
+                        <input type="submit"  value="Cancelar" onclick="location.href='{{url_for('home')}}'">              
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="../../static/js/index.js"></script>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block title %}Eliminación de zona{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<h1 class="title-user-register">Resultados de búsqueda</h1>
+<div class="container-user-register">
+  <div class="title">Detalles de la zona</div>
+  <div class="content-user-register">
+    
+      <div class="user-details">
+        <div class="input-box"></div>
+            <span class="details">Nombre de la zona: {{zona.nombre}}</span>
+        </div>
+        <div class="input-box">
+            <span class="details">Codigo: sin valor</span>
+        </div>             
+        </div>
+        <div class="body-home"> 
+          {% if has_permission(session["user"], "user_delete") %}
+            <a href="{{ url_for('zonasInundables_delete' , zona_id = zona.id) }}" class="link">Eliminar</a>
+          {% endif %}
+          <a href="{{ url_for('zonasInundables_index') }}" class="link">Cancelar</a>
+        </div>  
+  </div>
+</div>
+{% endblock %}

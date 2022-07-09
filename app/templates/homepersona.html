@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %} 
+<div class="body-home container-fluid">
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class="alert alert-primary" role="alert">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+  {% block navleft %}
+    {% include './layout/navleftPersona.html' %}
+  {% endblock %}
+  <div class="row">
+    <div class="row justify-content-center">
+      <div class="col-3">
+        <h1 class="title-home left bold">¿Querés saber tu próximo turno?</h1>
+        <h2 class="subtitle-home left">Accedé a mis turnos</h2>
+        <a href="{{ url_for('misturnos') }}" class="button button-ingresar bold">Mis Turnos</a>
+      </div>
+      <div class="col-4">
+        <figure><img class="vacunarse rounded"src=".\static\source\vacunarse.jpg" alt="" width="75%" height="75%"></figure>
+      </div>
+    </div>
+  </div>
+  
+  </div>
+</div>
+ {% endblock %}

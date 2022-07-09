@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block title %}Búsqueda por username{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<h1 class="title-user-register">Resultados de búsqueda</h1>
+
+{% for user in users %}
+<div class="container-user-register">
+  
+  <div class="title">Detalles de usuario</div>
+  <div class="content-user-register">
+    
+      <div class="user-details">
+        <div class="input-box"></div>
+            <span class="details">Nombre de usuario: {{user.username}}</span>
+        </div>
+        <div class="input-box">
+            <span class="details">Nombres: {{user.first_name}}</span>
+        </div>
+        <div class="input-box"></div>
+            <span class="details">Apellido: {{user.last_name}}</span>
+        </div>
+        <div class="input-box"></div>
+            <span class="details">Email: {{user.email}}</span>
+        </div>
+                    
+      </div>
+  
+  </div>
+  
+  
+</div>
+{% endfor %}
+<div class="body-home"> 
+  <a href="{{ url_for('user_index') }}" class="link">Volver</a>
+</div>
+{% endblock %}
+ 
+

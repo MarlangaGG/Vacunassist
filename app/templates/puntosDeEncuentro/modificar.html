@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block title %}Editar punto de encuentro{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+{% endblock %}
+{% block content %}
+    <h1 class="title-user-register">Editar Punto de Encuentro</h1>
+    <div class="container-user-register">
+        <div class="title">Detalles del punto</div>
+            <div class="content-user-register">
+                <form action="{{ url_for ('puntosDeEncuentro_actualizar' , punto_id = punto.id) }}" method="POST">
+                    <div class="user-details">
+                        <div class="input-box">
+                            <span class="details">Nombre</span>
+                            <input type="text" placeholder="Ingrese el nombre"  value="{{punto.nombre}}" required="true" name="nombre">
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Dirección</span>
+                            <input type="text" name="direccion" placeholder="Ingrese su dirección" value="{{punto.direccion}}" required="true">
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Teléfono</span>
+                            <input type="text" name="telefono" placeholder="Ingrese su teléfono" value="{{punto.telefono}}" required="true">
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Email</span>
+                            <input type="email" name="email" placeholder="Ingrese su email" value = "{{punto.email}}" required="true">
+                        </div>
+                    </div>
+                    <div class="button">
+                        <input type="submit"  value="Actualizar datos"> 
+                    </div>
+                </form>
+                <div class="button button-cancel">
+                    <input type="submit"  value="Cancelar" onclick="location.href='{{url_for('puntosDeEncuentro_index')}}'">          
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

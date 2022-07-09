@@ -1,0 +1,57 @@
+
+  {% extends "layout.html" %}
+  {% block title %}Editar perfil{% endblock %}
+  {% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+  {% endblock %}
+
+  {% block content %}
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class="alert alert-danger" role="alert">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+  </div>
+    {% endif %}
+    {% endwith %}
+    <h1 class="title-user-register">Editar perfil</h1>
+    <div class="container-user-register">
+      <div class="title">Detalles de usuario</div>
+      <div class="content-user-register">
+        <form action="{{ url_for('user_update') }}" method="POST">
+            <div class="user-details">
+              <div class="input-box">
+                <span class="details">Nombre</span>
+                <input type="text" name="first_name" placeholder="Ingrese el nombre"  value="{{myuser.first_name}}" required="true">
+              </div>
+              <div class="input-box">
+                <span class="details">Apellido</span>
+                <input type="text" name="last_name" placeholder="Ingrese el apellido" value="{{myuser.last_name}}" required="true">
+              </div>
+              <div class="input-box">
+                <span class="details">Username</span>
+                <input type="text" name="username" placeholder="El nombre de usuario deber ser unico" value="{{myuser.username}}" required="true">
+              </div>
+              <div class="input-box">
+                <span class="details">Email</span>
+                <input type="email" name="email" placeholder="El email debe ser unico" value = {{myuser.email}} required="true">
+              </div>
+              <input type="hidden" name="password" value="{{ myuser.password }}">
+                   
+            </div>
+          <div class="button">
+            <input type="submit" value="Actualizar">
+          </div>
+          
+        </form>
+        <div class="button button-cancel">
+          <input type="submit"  value="Cancelar" onclick="location.href='{{url_for('home')}}'">              
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+  
+ 
+

@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block title %}Usuarios{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='separate_footer.css') }}" />
+{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class="alert alert-primary" role="alert">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+  </div>
+  {% endif %}
+{% endwith %}
+
+  <h1 class="users-index-title">Mis Turnos</h1>
+  {% if turnos|length == 0 %}
+    <h5 class="text-center">No tiene turnos asignados</h5>
+  {% else %}  
+  
+
+  <div class="body-home"> 
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th scope="col">Tipo vacuna</th>
+          <th scope="col">Fecha turno</th>
+          <th scope="col">Horario</th>
+          <th scope="col">Vacunatorio</th>
+        </tr>
+      </thead>
+      {% for turno in turnos %}
+      <tbody>
+        <tr>
+          <td>{{ turno.tipovacuna }}</td>
+          <td>{{ turno.fecha_turno }}</td>
+          <td>{{turno.hora}}:00 hs </td> 
+          {% if  turno.zona == 1 %}
+                <td>Zona plaza Moreno</td>
+          {% endif %}
+          {% if  turno.zona == 2 %}
+                <td>Zona terminal</td>
+          {% endif %} 
+          {% if  turno.zona == 3 %}
+                <td>Zona cementerio</td>
+          {% endif %}
+        </tr>
+      </tbody>
+      {% endfor %}
+      
+    </table>
+    {% endif %}
+    <div class="body-home"> 
+        <a href="{{ url_for('homepersona') }}" class="btn btn-primary">Volver</a>
+    </div>
+  
+{% endblock %}

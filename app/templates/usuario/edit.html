@@ -1,0 +1,76 @@
+
+  {% extends "layout.html" %}
+  {% block title %}Editar perfil{% endblock %}
+  {% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+  {% endblock %}
+
+  {% block content %}
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class="alert alert-danger" role="alert">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+  </div>
+    {% endif %}
+    {% endwith %}
+    <h1 class="title-user-register">Editar perfil</h1>
+    <div class="container-user-register">
+      <div class="title">Detalles de usuario</div>
+      <div class="content-user-register">
+        <form action="{{ url_for('modificardatos') }}" method="POST">
+            <div class="user-details">
+                <div class="input-box">
+                    <span class="details">Nombre</span>
+                    <input type="text" name="nombre" placeholder="Ingrese el nombre" value="{{myuser.nombre}}" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Apellido</span>
+                    <input type="text" name="apellido" placeholder="Ingrese el apellido" value="{{myuser.apellido}}" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">DNI</span>
+                    <input type="number" name="dni" placeholder="Ingrese el DNI" maxlength="8" minlength="7" value="{{myuser.dni}}" required>
+                </div>
+                
+                <div class="input-box">
+                    <span class="details">Teléfono</span>
+                    <input type="tel"  name="telefono" pattern=[0-9]{8-15} maxlength="15" minlength="8" placeholder="Teléfono del denunciante" value="{{myuser.telefono}}" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Vacunatoria cercano</span>
+                    <select name="zona">
+                        {% if  myuser.zona == 1 %}
+                            <option selected value="{{ myuser.zona }}">Zona plaza Moreno</option>
+                        {% else %}  
+                            <option value="1">Zona plaza Moreno</option>
+                        {% endif %}
+                        {% if  myuser.zona == 2 %}
+                            <option selected value="{{ myuser.zona }}">Zona terminal</option>
+                        {% else %}  
+                            <option value="2">Zona terminal</option>
+                        {% endif %}
+                        {% if  myuser.zona == 3 %}
+                            <option selected value="{{ myuser.zona }}">Zona cementerio</option>
+                        {% else %}  
+                            <option value="3">Zona cementerio</option>
+                        {% endif %}
+                    
+                    </select>
+                  </div>
+                
+            </div> 
+          <a class="btn btn-primary" href="{{ url_for('modificarpass') }}" class="link">Modificar contraseña</a>
+          <div class="padded">
+            <button class="btn btn-primary" type="submit">Actualizar</button>
+            <a class="btn btn-danger" href="{{url_for('homepersona')}}" class="link">Cancelar</a>
+          </div>          
+        </form>  
+      </div>
+    </div>
+    {% endblock %}
+  
+ 
+

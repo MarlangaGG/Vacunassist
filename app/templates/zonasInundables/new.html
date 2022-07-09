@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}Zonas inundables{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+{% endblock %}
+{% block content %}
+    <h1 class="title-user-register">Registro de zonas inundables</h1>
+    <div class="container-user-register">
+        <div class="title">Registrar zona</div>
+            <div class="content-user-register">
+                <form action="{{ url_for('zonasInundables_create') }}" method="POST">
+                    <div class="user-details">
+                        <div class="input-box">
+                            <span class="details">Nombre</span>
+                            <input type="text" name="nombre" placeholder="Ingrese el nombre" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Dirección</span>
+                            <input type="text" name="codigo_zona" placeholder="Ingrese el codigo de la zona" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Cordenadas</span>
+                            <input type="text" name="cordenadas" placeholder="Ingresar las cordenadas" required>
+                        </div>
+                    </div>
+                    <div class="button">
+                        <input type="submit" value="Registrar">
+                    </div>
+                    <div class="button button-cancel">
+                        <input type="submit"  value="Cancelar" onclick="location.href='{{url_for('home')}}'">              
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

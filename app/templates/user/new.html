@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block title %}Crear usuario{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+{% endblock %}
+{% block content %}
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="alert alert-primary" role="alert">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+      </div>
+    {% endif %}
+{% endwith %}
+  <h1 class="title-user-register">Modulo registro de usuarios</h1>
+  <div class="container-user-register">
+    <div class="title">Registrar usuario</div>
+    <div class="content-user-register">
+      <form action="{{ url_for('user_create') }}" method="POST">
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Nombre</span>
+            <input type="text" name="first_name" placeholder="Ingrese el nombre" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Apellido</span>
+            <input type="text" name="last_name" placeholder="Ingrese el apellido" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Username</span>
+            <input type="text" name="username" placeholder="El nombre de usuario deber ser unico" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Email</span>
+            <input type="email" name="email" placeholder="El email debe ser unico" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Contraseña</span>
+            <input type="password" name="password" placeholder="Ingresar contraseña" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Repetir contraseña</span>
+            <input type="password" name="password2" placeholder="Repetir contraseña" required>
+          </div>
+        </div>
+        <div class="button">
+          <input type="submit" value="Registrar">
+        </div>
+        <div class="button button-cancel">
+          <input type="submit"  value="Cancelar" onclick="location.href='{{url_for('home')}}'">              
+        </div>
+      </form>
+    </div>
+  </div>
+  {% endblock %}

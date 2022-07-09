@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block title %}Usuarios activos{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='separate_footer.css') }}" />
+{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="alert alert-primary" role="alert">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+  <h1 class="users-index-title">Listado de Usuarios activos</h1>
+  <div class="body-home"> 
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Email</th>
+          <th scope="col">Opciones</th>
+        </tr>
+      </thead>
+      {% for user in post_pagination.items %}
+      <tbody>
+        <tr>
+          <td>{{ user.first_name }}</td>
+          <td>{{ user.last_name }}</td>
+          <td>{{ user.email }} </td>
+          <td>
+            {% if not session["user"] == user.email %}
+              {% if has_permission(session["user"], "user_bloquear") %}
+                <a href="{{ url_for('user_bloquear' , user_id = user.id) }}" class="link">Bloquear</a>
+              {% endif %}
+            {% endif %}
+            
+          </td>          
+        </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+  </div>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+    {%- for page in post_pagination.iter_pages() %}
+        {% if page %}
+            {% if page != post_pagination.page %}
+                <li class="page-item"><a class="page-link" href="{{ url_for('user_activos', page=page) }}">{{ page }}</a></li>
+            {% else %}
+                <li class="page-item active"><a class="page-link" href="{{ url_for('user_activos', page=page) }}">{{ page }}</a></li>
+            {% endif %}
+        {% else %}
+        {% endif %}
+    {%- endfor %}
+    </ul> 
+  <nav aria-label="Page navigation example">
+  <div class="body-home"> 
+    <a href="{{ url_for('user_index') }}" class="link">Volver</a>
+    
+  </div>
+{% endblock %}

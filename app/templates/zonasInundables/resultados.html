@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% block title %}
+    Zonas inundables
+{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='separate_footer.css') }}" />
+{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class="alert alert-primary" role="alert">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+  </div>
+  {% endif %}
+{% endwith %}
+    <h1 class="users-index-title">Resultado de la busqueda</h1>
+    <div class="body-home"> 
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+            {% for zona in post_pagination.items %}
+                <tbody>
+                    <tr>
+                        <td>{{ zona.nombre }}</td>
+                        <td>{{ zona.codigo_zona }}</td>
+                        <td>
+                            {% if zona.estado == 0 %}
+                                No publicado
+                            {% else %}
+                                Publicado
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if has_permission(session["user"], "zonas_show") %} 
+                            <a href="{{ url_for('zonasInundables_index_detalle' , zona_id = zona.id) }}">Ver en detalle</a>
+                            {% endif %}
+                            {% if has_permission(session["user"], "zonas_destroy") %}
+                            <a href="{{ url_for('zonasInundables_eliminar' , zona_id = zona.id) }}">Eliminar</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+    </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+        {%- for page in post_pagination.iter_pages() %}
+            {% if page %}
+                {% if page != post_pagination.page %}
+                    <li class="page-item"><a class="page-link" href="{{ url_for('zonasInundables_resultados', page=page) }}">{{ page }}</a></li>
+                {% else %}
+                    <li class="page-item active"><a class="page-link" href="{{ url_for('zonasInundables_resultados', page=page) }}">{{ page }}</a></li>
+                {% endif %}
+            {% else %}
+            {% endif %}
+        {%- endfor %}
+        </ul> 
+    <div class="body-home"> 
+        <a href="{{ url_for('zonasInundables_index') }}" class="link">Volver</a>
+    </div>      
+{% endblock %}

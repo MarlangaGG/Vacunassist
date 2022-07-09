@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+{% block title %}
+    Puntos de encuentro
+{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='separate_footer.css') }}" />
+{% endblock %}
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-primary" role="alert">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <h1 class="users-index-title">Listado de puntos de encuentro</h1>
+    <div class="body-home"> 
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Dirección</th>
+                    <th scope="col">Coordenadas</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Modificar</th>
+                    <th scope="col">Eliminar</th>
+                </tr>
+            </thead>
+            {% for punto in post_pagination.items %}
+                <tbody>
+                    <tr>
+                        <td>{{ punto.nombre }}</td>
+                        <td>{{ punto.direccion }}</td>
+                        <td>{{ punto.coordenadas }}</td>
+                        <td>
+                            {% if punto.estado == 0 %}
+                                No publicado
+                            {% else %}
+                                Publicado
+                            {% endif %}
+                        </td>
+                        <td>{{ punto.telefono }}</td>
+                        <td>{{ punto.email }}</td>
+                        <td> <a href="{{ url_for('puntosDeEncuentro_modificar' , punto_id = punto.id) }}">Modificar</a></td>
+                        <td> <a href="{{ url_for('puntosDeEncuentro_eliminar' , punto_id = punto.id) }}">Eliminar</a></td>
+                    </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+    </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+        {%- for page in post_pagination.iter_pages() %}
+            {% if page %}
+                {% if page != post_pagination.page %}
+                    <li class="page-item"><a class="page-link" href="{{ url_for('puntosDeEncuentro_index', page=page) }}">{{ page }}</a></li>
+                {% else %}
+                    <li class="page-item active"><a class="page-link" href="{{ url_for('puntosDeEncuentro_index', page=page) }}">{{ page }}</a></li>
+                {% endif %}
+            {% else %}
+            {% endif %}
+        {%- endfor %}
+        </ul> 
+    <nav aria-label="Page navigation example">
+    <div class="body-home"> 
+        <a href="{{ url_for('home') }}" class="link">Volver</a>
+        {% if is_authenticated(session) %}
+            <a href="{{ url_for('puntosDeEncuentro_new') }}" class="link">Nuevo</a>
+        {% endif %}
+    </div>
+    {% if is_authenticated(session) %}
+    <div class="section-filters">
+        <form class="form-search" action="{{ url_for('puntosDeEncuentro_resultados') }}" method="POST">
+            <button class="btn btn-primary" type="submit">Buscar</button>
+            <div class="container-filters">
+                <input class="form-control me-2" type="search" placeholder="Buscar por nombre" aria-label="Search" name="nombre" required/>
+            </div>
+            <h4 class="form-check container-filters">Filtrar por: </h4>
+            <div class="form-check container-filters">
+                <input class="form-check-input" type="radio" name="flexRadioDeFilter" value="1" id="flexRadioDefault1" checked>
+                <label class="form-check-label" for="flexRadioDefault1">
+                Publicado
+                </label>
+            </div>
+            <div class="form-check container-filters">
+                <input class="form-check-input" type="radio" name="flexRadioDeFilter" value="0" id="flexRadioDefault2" checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                No publicado
+                </label>
+            </div>
+            <div class="form-check container-filters">
+                <input class="form-check-input" type="radio" name="flexRadioDeFilter" value="2" id="flexRadioDefault3">
+                <label class="form-check-label" for="flexRadioDefault3" checked>
+                Ambos
+                </label>
+            </div>
+        </form>
+</div>
+{% endif %}
+{% endblock %}

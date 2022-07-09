@@ -1,0 +1,61 @@
+
+  {% extends "layout.html" %}
+  {% block title %}Crear denuncia{% endblock %}
+  {% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+  {% endblock %}
+  {% block content %}
+    <h1 class="title-user-register">Modulo registro de denuncias</h1>
+    <div class="container-user-register">
+      <div class="title">Realizar denuncia</div>
+      <div class="content-user-register">
+        <form action="{{ url_for('denuncia_create') }}" method="POST">
+          <div class="user-details">
+            <div class="input-box">
+              <span class="details">Título</span>
+              <input type="text" name="titulo" placeholder="Título breve y claro" required>
+              
+            </div>
+            <div class="input-box">
+              <span class="details">Categoría</span>
+              <select name="categoria" class="form-select details" aria-label="Default select example">
+                {% for cate in categorias %}
+                  <option value="{{ cate.id }}">{{ cate.nombre }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="input-box">
+              <span class="details">Nombre</span>
+              <input type="text" name="nombre" placeholder="Nombre del denunciante" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Apellido</span>
+              <input type="text" name="apellido" placeholder="Apellido del denunciante" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Email</span>
+              <input type="email" name="email" placeholder="Email del denunciante" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Teléfono</span>
+              <input type="tel"  name="telefono" pattern=[0-9]{8-15} maxlength="15" minlength="8" placeholder="Teléfono del denunciante" required>
+            </div>
+            
+            <div class="input-box">
+              <span class="details">Descripción</span>
+              <textarea name="descripcion" rows="5" cols="30" maxlength="256" placeholder="Descripción clara de la denuncia" required></textarea>
+            </div>
+          </div>
+          <div class="button">
+            <input type="submit" value="Registrar">
+          </div>
+          <div class="button button-cancel">
+            <input type="submit"  value="Cancelar" onclick="location.href='{{url_for('home')}}'">              
+          </div>
+        </form>
+        
+      </div>
+    </div>
+    {% endblock %}
+  

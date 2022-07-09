@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}Eliminación de usuario{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+{% endblock %}
+{% block content %}
+
+<h1 class="title-user-register">Eliminar usuario</h1>
+<div class="container-user-register">
+  <div class="title">Detalles de usuario</div>
+  <div class="content-user-register">
+    
+      <div class="user-details">
+        <div class="input-box"></div>
+            <span class="details">Nombre de usuario: {{user.username}}</span>
+        </div>
+        <div class="input-box">
+            <span class="details">Nombres: {{user.first_name}}</span>
+        </div>
+        <div class="input-box"></div>
+            <span class="details">Apellido: {{user.last_name}}</span>
+        </div>
+        <div class="input-box"></div>
+            <span class="details">Email: {{user.email}}</span>
+        </div>
+                    
+        </div>
+        
+        <div class="body-home"> 
+          {% if has_permission(session["user"], "user_delete") %}
+            <a href="{{ url_for('user_delete' , user_id = user.id) }}" class="link">Eliminar</a>
+          {% endif %}
+          <a href="{{ url_for('user_index') }}" class="link">Cancelar</a>
+        </div>
+    
+  </div>
+</div>
+{% endblock %}
+ 
+

@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block title %}
+    Zonas inundables
+{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+  <!-- Leaflet Draw -->
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css" />
+  <link rel="stylesheet" href="http://localhost/leaflet/leaflet/Leaflet.draw/dist/leaflet.draw.css" />
+   <!-- CSS and JS files for Search Box -->
+  <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
+  <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
+  <script type="module" src="{{ url_for('static', filename='js/zonas/index.js') }}"></script>
+{% endblock %}
+{% block content %}
+<section class="zonas-info" id="zonas">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-6 col-info">
+              <button class="btn btn-primary btn-zonas-volver" onclick="location.href='{{ url_for('zonasInundables_index') }}'">Volver al listado</button>
+              <h3 class="title-zona">Nombre: <span class="description-zona">{{ zona.nombre }}</span></h3>
+              <h3 class="title-zona">Codigo: <span class="description-zona">Sin valor</span></h3>
+                
+
+              <h3 class="title-zona">Estado: 
+                <span class="description-zona">
+                {% if zona.estado == 0 %}
+                    No publicado
+                {% else %}
+                    Publicado
+                {% endif %}
+              </span>
+              </h3>
+              <h3 class="title-zona">Puntos: <span class="description-zona">{{ cant_puntos }}</span></h3>
+              <button class="btn btn-primary btn-zonas-coordenadas" id="btn-coordenadas">Ver cordenadas</button>
+          </div>
+          <div class="col-md-6 map-container">
+            <div id="mapid"></div>
+          </div>
+      </div>
+  </div>
+</section>
+{% endblock %}

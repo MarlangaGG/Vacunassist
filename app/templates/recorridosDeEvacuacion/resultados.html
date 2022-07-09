@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+{% block title %}
+    Resultados de búsqueda
+{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <h1 class="users-index-title">Recorridos de evacuación</h1>
+    <div class="body-home">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Estado</th>
+                    {% if is_authenticated(session) %}
+                        <th scope="col">Detalle</th>
+                        <th scope="col">Modificar</th>
+                        {% if has_permission(session["user"], "recorridos_destroy") %}
+                            <th scope="col">Eliminar</th>
+                        {% endif %}
+                    {% endif %}
+                </tr>
+            </thead>
+            {% for recorrido in recorridos.items %}
+                <tbody>
+                    <td>{{recorrido.nombre}}</td>
+                    <td>
+                        {% if recorrido.estado == 0 %}
+                            No publicado
+                        {% else %}
+                            Publicado
+                        {% endif %}
+                    </td>
+                    {% if is_authenticated(session) %}
+                        <td><a href="">Detalle</a></td>
+                        <td><a href="{{ url_for('recorridosDeEvacuacion_modificar' , recorrido_id = recorrido.id) }}">Modificar</a></td>
+                        {% if has_permission(session["user"], "recorridos_destroy") %}
+                            <td><a href="{{ url_for('recorridosDeEvacuacion_eliminar' , recorrido_id = recorrido.id) }}">Eliminar</a></td>
+                        {% endif %}
+                    {% endif %}
+                </tbody>
+            {% endfor %}
+        </table>
+    </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+        {%- for page in recorridos.iter_pages() %}
+            {% if page %}
+                {% if page != recorridos.page %}
+                    <li class="page-item"><a class="page-link" href="{{ url_for('recorridosDeEvacuacion_resultados', page=page) }}">{{ page }}</a></li>
+                {% else %}
+                    <li class="page-item active"><a class="page-link" href="{{ url_for('recorridosDeEvacuacion_resultados', page=page) }}">{{ page }}</a></li>
+                {% endif %}
+            {% else %}
+            {% endif %}
+        {%- endfor %}
+        </ul>
+    </nav>
+    <nav aria-label="Page navigation example">
+        <div class="body-home"> 
+            <a href="{{ url_for('home') }}" class="link">Volver</a>
+            {% if is_authenticated(session) %}
+                <a href="{{ url_for('recorridosDeEvacuacion_new') }}" class="link">Nuevo</a>
+            {% endif %}
+        </div>
+    </nav>
+    <div class="section-filters">
+        <form class="form-search" action="{{ url_for('recorridosDeEvacuacion_resultados') }}" method="POST">
+            <button class="btn btn-primary" type="submit">Buscar</button>
+            <div class="container-filters">
+                <input class="form-control me-2" type="search" placeholder="Buscar por nombre" aria-label="Search" name="nombre" required/>
+            </div>
+            <h4 class="form-check container-filters">Filtrar por: </h4>
+            <div class="form-check container-filters">
+                <input class="form-check-input" type="radio" name="flexRadioDeFilter" value="1" id="flexRadioDefault1" checked>
+                <label class="form-check-label" for="flexRadioDefault1">
+                Publicado
+                </label>
+            </div>
+            <div class="form-check container-filters">
+                <input class="form-check-input" type="radio" name="flexRadioDeFilter" value="0" id="flexRadioDefault2" checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                No publicado
+                </label>
+            </div>
+            <div class="form-check container-filters">
+                <input class="form-check-input" type="radio" name="flexRadioDeFilter" value="2" id="flexRadioDefault3">
+                <label class="form-check-label" for="flexRadioDefault3" checked>
+                Ambos
+                </label>
+            </div>
+        </form>
+{% endblock %}

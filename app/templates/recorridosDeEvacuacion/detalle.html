@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}Detalle recorrido{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+{% endblock %}
+{% block content %}
+    <h1 class="title-user-register">Detalles de recorrido</h1>
+    <div class="container-user-register">
+        <div class="content-user-register">
+            <div class="user-details">
+                <div class="input-box">
+                    <span class="details">Título: {{recorrido.nombre}}</span>
+                </div>
+                <div class="input-box">
+                    <span class="details">Descripción: {{recorrido.descripcion}}</span>
+                </div>
+                {% if recorrido.estado == 0 %}
+                    <div class="input-box">
+                        <span class="details">Categoría: No publicado</span>
+                    </div>
+                {% else %}
+                <div class="input-box">
+                    <span class="details">Categoría: Publicado</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="body-home"> 
+        <a href="{{ url_for('recorridosDeEvacuacion_index') }}" class="link">Volver</a>
+    </div>
+{% endblock %}

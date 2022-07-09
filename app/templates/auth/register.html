@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block title %}Crear usuario{% endblock %}
+{% block head %}
+  {{ super() }}
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+  
+  {% endblock %}
+{% block content %}
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="alert alert-primary" role="alert">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+      </div>
+    {% endif %}
+{% endwith %}
+  <h1 class="title-user-register">Modulo registro de usuarios</h1>
+  <div class="container-user-register">
+    <div class="title">Registrar usuario</div>
+    <div class="content-user-register">
+      <form action="{{ url_for('usuario_registrarse') }}" method="POST">
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Nombre</span>
+            <input type="text" name="nombre" placeholder="Ingrese el nombre" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Apellido</span>
+            <input type="text" name="apellido" placeholder="Ingrese el apellido" required>
+          </div>
+          <div class="input-box">
+            <span class="details">DNI</span>
+            <input type="number" name="dni" placeholder="Ingrese el DNI" maxlength="8" minlength="7" required>
+          </div>
+          <div class="container-filters">
+            <span class="details">Fecha de nacimiento</span>  
+            <input type="date" id="start" name="fechanac"
+             value="2021-07-22"
+             min="1920-01-01" max="2022-04-05"> 
+          </div>
+          <div class="input-box">
+            <span class="details">Teléfono</span>
+            <input type="tel"  name="telefono" pattern=[0-9]{8-15} maxlength="15" minlength="8" placeholder="Teléfono " required>
+          </div>
+          <div class="input-box">
+            <span class="details">Vacunatoria cercano</span>
+            <select name="zona">
+              <option value="1" selected>Zona plaza Moreno</option>
+              <option value="2">Zona terminal</option>
+              <option value="3">Zona cementerio</option>
+            </select>
+          </div>
+          <div class="input-box">
+            <span class="details">Email</span>
+            <input type="email" name="email" placeholder="El email debe ser unico" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Contraseña</span>
+            <input type="password" name="password" placeholder="Ingresar contraseña"  maxlength="20" minlength="6" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Repetir contraseña</span>
+            <input type="password" name="password2" placeholder="Repetir contraseña"  maxlength="20" minlength="6" required>
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Confirmar</button>
+        <a class="btn btn-danger" href="{{url_for('home')}}" class="link">Cancelar</a>
+        
+      </form>
+    </div>
+  </div>
+  {% endblock %}

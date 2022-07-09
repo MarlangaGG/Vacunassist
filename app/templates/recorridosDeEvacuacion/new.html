@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block title %}
+    Nuevo Recorrido de evacuación
+        {% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+  <!-- Leaflet Draw -->
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css" />
+  <link rel="stylesheet" href="http://localhost/leaflet/leaflet/Leaflet.draw/dist/leaflet.draw.css" />
+   <!-- CSS and JS files for Search Box -->
+  <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
+  <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
+  <script type="module" src="{{ url_for('static', filename='js/index.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='mapa.css')}}">
+{% endblock %}
+{% block content %}
+<h1 class="title-user-register">Registro de recorridos de evacuación</h1>
+<div class="container-user-register">
+    <div class="title">Registrar recorrido de evacuación</div>
+        <div class="content-user-register">
+            <form action="{{ url_for('recorridosDeEvacuacion_create') }}" method="POST">
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Nombre</span>
+                        <input type="text" name="nombre" placeholder="Ingrese el nombre" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Descripción</span>
+                        <input type="text" name="descripcion" placeholder="Ingres su descripción" required>
+                    </div>
+                </div>       
+                <div class="col-md-6 map-container">
+                    <div id="mapid"></div>
+                </div>       
+                <div class="button">
+                    <input type="submit" value="Registrar">
+                </div>
+                <div class="button button-cancel">
+                    <input type="submit"  value="Cancelar" onclick="location.href='{{url_for('home')}}'">              
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

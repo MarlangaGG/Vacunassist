@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block title %}Modulo configuracion{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='config_module.css')}}">
+{% endblock %}
+{% block content %}
+    <h1 class="title-user-register">Modulo Configuracion</h1>
+    <div class="container-user-register">
+      <div class="title">Configuracion del sistema</div>
+      <div class="content-user-register">
+        <form action="{{ url_for('config_module_update') }}" method="POST">
+          <div class="user-details">
+            <div class="input-box">
+              <span class="details">Cantidad de elementos por pagina</span>
+              <select name="elements_per_page" class="form-select details" aria-label="Default select example">
+                <option selected value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+              </select>
+            </div>
+            <div class="input-box">
+              <span class="details">Criterio de ordenacion</span>
+              <select name="criterio_ordenacion" class="form-select details" aria-label="Default select example">
+                <option selected value="nombre">Nombre</option>
+                <option value="fecha_asc">Mas nuevo</option>
+                <option value="fecha_desc">Mas longevo</option>
+              </select>
+            </div>
+            <div class="input-box">
+              <span class="details">Cofiguracion Paleta de colores</span>
+              <span class="details">Color Base (Navbars y Footer)</span>
+              <input name="input-color-base" class="input-color" type="color">
+            </div>
+            <div class="input-box">
+              <span class="details">Cofiguracion color de texto</span>
+              <span class="details">Color (Color fuente Titulos y Labels)</span>
+              <input name="input-color-text" class="input-color" type="color">
+            </div>
+          </div>
+          {% if has_permission(session["user"], "configModule_edit") %}
+          <div class="button">
+            <input type="submit" value="Guardar configuracion">
+          </div>
+          {% endif %}
+        </form>
+        <div class="button button-cancel">
+          <input type="submit"  value="Cancelar" onclick="location.href='{{url_for('home')}}'">              
+        </div>
+      </div>
+    </div>
+{% endblock %}
+  

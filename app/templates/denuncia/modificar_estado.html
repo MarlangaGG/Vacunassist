@@ -1,0 +1,64 @@
+
+  {% extends "layout.html" %}
+  {% block title %}Modificación estado denuncia{% endblock %}
+  {% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+  {% endblock %}
+
+  {% block content %}
+  
+    <h1 class="title-user-register">Modificar denuncia</h1>
+    <div class="container-user-register">
+      <div class="title">Detalles de denuncia</div>
+      <div class="content-user-register">
+        <form action="{{ url_for('denuncia_confirmar_estado') }}" method="POST">
+            <div class="user-details">
+                <input type="hidden" name="id" value="{{ denuncia.id }}">
+                
+                <div class="input-box">
+                    <span class="details">Título: {{denuncia.titulo}}</span>
+                </div>               
+                <div class="input-box">
+                    <span class="details">Estado Actual: {{denuncia.estado}}</span>
+                </div>
+                <div class="input-box">
+                    <span class="details">Estados</span>
+                    <select name="estado" class="form-select details" aria-label="Default select example">
+                      {% if  denuncia.estado  == 'Sin confirmar' %}
+                      <option selected value="Sin confirmar">Sin confirmar</option>
+                        {% else %}  
+                        <option value="Sin confirmar">Sin confirmar</option>
+                      {% endif %}
+                      
+                      {% if  denuncia.estado  == 'En curso' %}
+                        <option selected value="En curso">En curso</option>
+                        {% else %}  
+                        <option value="En curso">En curso</option>
+                      {% endif %}
+                      {% if  denuncia.estado  == 'Resuelta' %}
+                        <option selected value="Resuelta">Resuelta</option>
+                        {% else %}  
+                        <option value="Resuelta">Resuelta</option>
+                      {% endif %}
+                      
+                      <option value="Cerrada">Cerrada</option>
+                    </select>
+                  </div>
+           
+                  </div>
+          <div class="button">
+            <input type="submit" value="Modificar">
+          </div>
+          
+        </form>
+        <div class="button button-cancel">
+          <input type="submit"  value="Cancelar" onclick="location.href='{{url_for('denuncia_show', denuncia_id=denuncia.id)}}'">              
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+  
+ 
+
+

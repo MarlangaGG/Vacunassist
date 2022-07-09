@@ -1,0 +1,13 @@
+.map-container{
+    margin-bottom: 5em;
+    margin-top: 5em;
+}
+
+#mapid{
+    height: 20em;
+    width: 20em;
+}
+
+#lat, #long{
+    display: none;
+}

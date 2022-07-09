@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% block title %}Denucias{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='separate_footer.css') }}" />
+{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class="alert alert-primary" role="alert">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+  </div>
+  {% endif %}
+{% endwith %}
+
+  <h1 class="users-index-title">Listado de denuncias</h1>
+  <div class="body-home"> 
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th scope="col">Título</th>
+          <th scope="col">Categoría</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Fecha de creación</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      {% for denuncia in post_pagination.items %}
+      <tbody>
+        <tr>
+          <td>{{ denuncia.titulo }}</td>
+          <td>{{ denuncia.categoria.nombre }}</td>
+          <td>{{ denuncia.estado }} </td>
+          <td>{{ denuncia.fecha_creacion }} </td>
+          <td>
+            <a href="{{ url_for('denuncia_show' , denuncia_id = denuncia.id) }}" class="link">Ver</a>
+          </td>
+        </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+  </div>
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+    {%- for page in post_pagination.iter_pages() %}
+        {% if page %}
+            {% if page != post_pagination.page %}
+                <li class="page-item"><a class="page-link" href="{{ url_for('denuncia_index', page=page) }}">{{ page }}</a></li>
+            {% else %}
+                <li class="page-item active"><a class="page-link" href="{{ url_for('denuncia_index', page=page) }}">{{ page }}</a></li>
+            {% endif %}
+        {% else %}
+        {% endif %}
+    {%- endfor %}
+    </ul> 
+  
+  <nav aria-label="Page navigation example">
+  <div class="body-home"> 
+    <a href="{{ url_for('home') }}" class="link">Volver</a>
+    <a href="{{ url_for('denuncia_new') }}">Realizar denuncia</a>
+    
+  </div>
+  <div class="section-filters">
+    <form class="form-search" action="{{ url_for('denuncia_search') }}" method="POST">
+    <button class="btn btn-primary" type="submit">Buscar</button>
+    <div class="container-filters">
+        <input class="form-control me-2" type="search" name="titulo" placeholder="Título" aria-label="Search">
+    </div>
+    <div class="container-filters">
+      <label>Estado: </label>
+    </div>
+    
+    <div class="container-filters">
+      
+      <select name="estado" class="form-select details" aria-label="Default select example">
+        <option selected value="Sin confirmar">Sin confirmar</option>
+        <option value="En curso">En curso</option>
+        <option value="Resuelta">Resuelta</option>
+        <option value="Cerrada">Cerrada</option>
+      </select>
+    </div>
+    <div class="container-filters">
+      <label>Fecha de creación desde: </label>
+    </div>
+    <div class="container-filters">
+      <input type="date" id="start" name="fechadesde"
+       value="2018-07-22"
+       min="2018-01-01" max="2021-12-31">
+    </div>
+    <div class="container-filters">
+      <label>hasta: </label>
+    </div>
+    <div class="container-filters">
+      <input type="date" id="start" name="fechahasta"
+       value="2018-07-22"
+       min="2018-01-01" max="2021-12-31">
+    </div>
+    
+    </form>
+  </div>
+
+  
+    
+   {% endblock %}

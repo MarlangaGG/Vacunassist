@@ -1,0 +1,44 @@
+
+  {% extends "layout.html" %}
+  {% block title %}Crear seguimiento{% endblock %}
+  {% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_forms.css')}}">
+  {% endblock %}
+  {% block content %}
+    <h1 class="title-user-register">Modulo registro de seguimiento</h1>
+    <div class="container-user-register">
+      <div class="title">Realizar seguimiento</div>
+      <div class="content-user-register">
+        <form action="{{ url_for('denuncia_create_seguimiento') }}" method="POST">
+          <div class="user-details">
+            <input type="hidden" name="id" value="{{ denuncia_id }}">
+            <div class="input-box">
+              <span class="details">Autor</span>
+              <select name="username"  class="form-select details" aria-label="Default select example">
+                {% for user in users %}
+                  <option value="{{ user.username }}">{{ user.username }}</option>
+                {% endfor %}
+                
+              </select>
+            </div>
+            <div class="input-box">
+              
+            </div>            
+            <div class="input-box">
+              <span class="details">Descripción</span>
+              <textarea name="descripcion" rows="5" cols="30" maxlength="256" placeholder="Descripción clara del seguimiento" required></textarea>
+            </div>
+          </div>
+          <div class="button">
+            <input type="submit" value="Registrar">
+          </div>
+          <div class="button button-cancel">
+            <input type="submit"  value="Cancelar" onclick="location.href='{{url_for('denuncia_index')}}'">              
+          </div>
+        </form>
+        
+      </div>
+    </div>
+    {% endblock %}
+  
